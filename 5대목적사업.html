@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>한대협 5대 목적사업</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:#f0f4f8;
+  font-family:'Noto Sans KR',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 24px;
+}
+
+.wrap{
+  max-width:1100px;
+  width:100%;
+}
+
+.head{
+  margin-bottom:52px;
+  position:relative;
+}
+.head-sub{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:3px;
+  color:#2563eb;
+  text-transform:uppercase;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.head-sub::before{
+  content:'';
+  display:inline-block;
+  width:28px;height:2px;
+  background:#2563eb;
+  border-radius:2px;
+}
+.head-title{
+  font-size:38px;
+  font-weight:900;
+  color:#0f1f3d;
+  line-height:1.15;
+  letter-spacing:-1px;
+}
+.head-title em{
+  color:#2563eb;
+  font-style:normal;
+}
+.head-desc{
+  margin-top:14px;
+  font-size:14px;
+  color:#64748b;
+  font-weight:400;
+}
+
+/* 그리드 */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;
+  gap:20px;
+}
+
+/* 4번, 5번 카드 → 2칸 */
+.card:nth-child(4){grid-column:1/3}
+.card:nth-child(5){grid-column:3/4}
+
+/* BASE CARD */
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:36px 34px 32px;
+  position:relative;
+  overflow:hidden;
+  cursor:default;
+  transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
+  box-shadow:0 2px 12px rgba(15,31,61,0.07);
+  border:1px solid rgba(15,31,61,0.06);
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 48px rgba(15,31,61,0.13);
+}
+
+/* 배경 장식 원 */
+.card::before{
+  content:'';
+  position:absolute;
+  width:180px;height:180px;
+  border-radius:50%;
+  top:-60px;right:-60px;
+  background:var(--accent-light);
+  transition:transform .4s ease;
+  z-index:0;
+}
+.card:hover::before{transform:scale(1.3)}
+
+.card::after{
+  content:'';
+  position:absolute;
+  width:80px;height:80px;
+  border-radius:50%;
+  bottom:-30px;left:30px;
+  background:var(--accent-light2,var(--accent-light));
+  opacity:0.5;
+  z-index:0;
+}
+
+/* 카드별 색상 */
+.card:nth-child(1){--accent:#2563eb;--accent-light:rgba(37,99,235,0.07);--accent-light2:rgba(37,99,235,0.04)}
+.card:nth-child(2){--accent:#0891b2;--accent-light:rgba(8,145,178,0.07);--accent-light2:rgba(8,145,178,0.04)}
+.card:nth-child(3){--accent:#7c3aed;--accent-light:rgba(124,58,237,0.07);--accent-light2:rgba(124,58,237,0.04)}
+.card:nth-child(4){--accent:#0f766e;--accent-light:rgba(15,118,110,0.07);--accent-light2:rgba(15,118,110,0.04)}
+.card:nth-child(5){--accent:#dc2626;--accent-light:rgba(220,38,38,0.07);--accent-light2:rgba(220,38,38,0.04)}
+
+/* 내용 */
+.card-inner{position:relative;z-index:1}
+
+.num{
+  font-family:'Montserrat',sans-serif;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:3px;
+  color:var(--accent);
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.num::after{
+  content:'';
+  display:block;
+  height:2px;
+  width:32px;
+  background:var(--accent);
+  border-radius:2px;
+  opacity:0.4;
+}
+
+.icon-wrap{
+  width:52px;height:52px;
+  border-radius:14px;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.15);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.card:hover .icon-wrap{
+  transform:scale(1.08) rotate(-3deg);
+  box-shadow:0 10px 28px rgba(0,0,0,0.2);
+}
+.icon-wrap svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.card-title{
+  font-size:20px;
+  font-weight:700;
+  color:#0f1f3d;
+  margin-bottom:12px;
+  line-height:1.3;
+  letter-spacing:-0.3px;
+}
+.card:nth-child(4) .card-title{font-size:22px}
+
+.card-body{
+  font-size:14px;
+  color:#475569;
+  line-height:1.8;
+  font-weight:400;
+}
+
+/* 하단 강조 태그 */
+.tags{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-top:20px;
+}
+.tag{
+  font-size:11px;font-weight:500;
+  background:var(--accent-light);
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:20px;
+  border:1px solid rgba(0,0,0,0.06);
+}
+
+/* 호버시 좌측 강조선 */
+.card-side{
+  position:absolute;
+  left:0;top:20%;bottom:20%;
+  width:4px;
+  border-radius:0 4px 4px 0;
+  background:var(--accent);
+  transform:scaleY(0);
+  transform-origin:center;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.card:hover .card-side{transform:scaleY(1)}
+
+/* 반응형 */
+@media(max-width:860px){
+  .grid{grid-template-columns:1fr 1fr}
+  .card:nth-child(4){grid-column:auto}
+  .card:nth-child(5){grid-column:auto}
+}
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .card:nth-child(4){grid-column:auto}
+  .head-title{font-size:28px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="head-sub">Korean Universities Admissions Council · Vietnam HQ</div>
+    <div class="head-title">한대협 <em>5대</em> 목적사업</div>
+    <div class="head-desc">한국대학진학협의회(한대협) 베트남본부</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- 01 -->
+    <div class="card">
+      <div class="card-side"></div>
+      <div class="card-inner">
+        <div class="num">01</div>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="card-title">국제역량강화지원</div>
+        <div class="card-body">교육부 교육국제화역량인증제(IEQAS) 기준 충족을 위해 현지 검증 시스템을 엄격히 운영합니다. 학생별 전문 컨설팅을 제공합니다.</div>
+        <div class="tags">
+          <span class="tag">IEQAS 인증</span>
+          <span class="tag">현지검증시스템</span>
+          <span class="tag">맞춤컨설팅</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="card">
+      <div class="card-side"></div>
+      <div class="card-inner">
+        <div class="num">02</div>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="card-title">국제교육교류진흥</div>
+        <div class="card-body">양국 정규 대학(2년제, 4년제) 교류 업무협약 MOU를 통해 양교 교환학생 프로그램(D2-6등)을 기획하고 매칭 지원합니다.</div>
+        <div class="tags">
+          <span class="tag">MOU 체결</span>
+          <span class="tag">교환학생 D2-6</span>
+          <span class="tag">양국 대학 연계</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="card">
+      <div class="card-side"></div>
+      <div class="card-inner">
+        <div class="num">03</div>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="card-title">문화교류지원</div>
+        <div class="card-body">D2-6 프로그램의 경우 입국 전 현지에서 한국어 교육과 사회·문화 사전 체험 교육 등을 통하여 초기 적응을 지원합니다.</div>
+        <div class="tags">
+          <span class="tag">한국어 교육</span>
+          <span class="tag">문화사전체험</span>
+          <span class="tag">초기적응지원</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 (wide) -->
+    <div class="card">
+      <div class="card-side"></div>
+      <div class="card-inner">
+        <div class="num">04</div>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="card-title">정주정책지원</div>
+        <div class="card-body">국내 체류 기간 중 합법적 시간제 취업을 재학 대학교와 협력하여 지원하며, 졸업 후 전문직 비자(E-7) 및 지역특화형 비자(F-2-R)를 통한 취업을 상담 연계합니다.</div>
+        <div class="tags">
+          <span class="tag">시간제 합법취업</span>
+          <span class="tag">전문직 비자 E-7</span>
+          <span class="tag">지역특화 F-2-R</span>
+          <span class="tag">졸업 후 정주연계</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="card">
+      <div class="card-side"></div>
+      <div class="card-inner">
+        <div class="num">05</div>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 8h3m4 0h3M7 12h10"/></svg>
+        </div>
+        <div class="card-title">유학 디지털 지원 플랫폼 운영</div>
+        <div class="card-body">AI 기반 유학 매칭 플랫폼을 통해 전국 대학 정보를 투명하게 공개하고 직접 지원 프로세스를 구축합니다. 중간 과다 수수료를 낮추는 효과.</div>
+        <div class="tags">
+          <span class="tag">AI 매칭</span>
+          <span class="tag">수수료 절감</span>
+          <span class="tag">직접지원</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
